@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature\V1\Posts;
+namespace Tests\Feature\Posts;
 
 use Tests\TestCase;
 
-class StoreControllerTest extends TestCase
+class ShowControllerTest extends TestCase
 {
     /**
      * A basic feature test example.

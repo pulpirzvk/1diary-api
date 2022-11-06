@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\V1\Posts;
+namespace App\Http\Requests\Posts;
 
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -22,7 +22,9 @@ class DeleteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'nullable|string|max:80',
+            'content' => 'required|string|max:9000',
+            'published_at' => 'nullable|date_format:Y-m-d H:i:s',
         ];
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\V1\Posts;
+namespace App\Http\Controllers\Posts;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Posts\ShowRequest;
+use App\Http\Requests\Posts\ShowRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 
