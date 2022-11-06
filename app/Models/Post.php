@@ -37,7 +37,7 @@ class Post extends Model
 
     public function newUniqueId(): string
     {
-        $nodeProvider = new StaticNodeProvider(new Hexadecimal(dechex($this->user_id)));
+        $nodeProvider = new StaticNodeProvider(new Hexadecimal(dechex($this->attributes['user_id'])));
 
         return (string)Uuid::uuid6($nodeProvider->getNode());
     }

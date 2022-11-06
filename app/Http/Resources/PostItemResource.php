@@ -13,7 +13,7 @@ class PostItemResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'id' => $this->uuid,
+            'id' => $this->getKey(),
             'title' => $this->title,
             'created_at' => $this->created_at->toAtomString(),
             'published_at' => $this->published_at->toAtomString(),
