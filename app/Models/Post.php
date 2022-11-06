@@ -30,6 +30,11 @@ class Post extends Model
         'published_at',
     ];
 
+    protected $casts = [
+        'published_at' => 'datetime:Y-m-d H:i:s',
+    ];
+
+
     public function newUniqueId(): string
     {
         $nodeProvider = new StaticNodeProvider(new Hexadecimal(dechex($this->user_id)));

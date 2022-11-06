@@ -7,7 +7,11 @@ use App\Http\Requests\Posts\UpdateRequest;
 use App\Models\Post;
 use App\Services\Response;
 use Illuminate\Http\JsonResponse;
+use Tests\Feature\Posts\UpdateControllerTest;
 
+/**
+ * @see UpdateControllerTest
+ */
 class UpdateController extends Controller
 {
     public function __invoke(UpdateRequest $request, Post $post): JsonResponse

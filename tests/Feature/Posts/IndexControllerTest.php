@@ -2,19 +2,48 @@
 
 namespace Tests\Feature\Posts;
 
+use App\Http\Controllers\Posts\IndexController;
+use App\Models\Post;
+use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
+/**
+ * @see IndexController
+ * @group Posts
+ */
 class IndexControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
-    {
-        $response = $this->get('/');
+    use DatabaseTransactions;
 
-        $response->assertStatus(200);
+    public function test_unauthorized(): void
+    {
+        User::factory()->has(Post::factory(5))->create();
+
+        $response = $this->getJson(route('api.posts.index'));
+
+        $response->assertUnauthorized();
+    }
+
+    public function test_success(): void
+    {
+        $user = User::factory()->has(Post::factory(3))->create();
+
+        $this->auth($user);
+
+        $response = $this->getJson(route('api.posts.index'));
+
+        $response
+            ->assertJsonCount(3, 'data')
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => [
+                        'id',
+                        'title',
+                        'created_at',
+                        'published_at',
+                    ],
+                ],
+            ]);
     }
 }
