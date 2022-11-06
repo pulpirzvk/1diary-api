@@ -1,19 +1,14 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\V1\Posts;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->name('api.v1.')->prefix('v1')->group(function () {
+    Route::prefix('posts')->name('posts.')->group(function () {
+        Route::get('/', Posts\IndexController::class)->name('index');
+        Route::post('/', Posts\StoreController::class)->name('store');
+        Route::get('/{post}', Posts\ShowController::class)->name('show');
+        Route::put('/{post}', Posts\UpdateController::class)->name('update');
+        Route::delete('/{post}', Posts\DeleteController::class)->name('delete');
+    });
 });
