@@ -16,7 +16,7 @@ class PostFactory extends Factory
             'user_id' => User::factory(),
             'title' => fake()->sentence,
             'content' => fake()->paragraph(6),
-            'published_at' => null,
+            //'published_at' => null,
         ];
     }
 }
