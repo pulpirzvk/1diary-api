@@ -25,4 +25,11 @@ class DeleteRequest extends FormRequest
             //
         ];
     }
+
+    public function bodyParameters(): array
+    {
+        return [
+            //
+        ];
+    }
 }

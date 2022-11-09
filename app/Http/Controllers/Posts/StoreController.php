@@ -14,6 +14,15 @@ use Tests\Feature\Posts\StoreControllerTest;
  */
 class StoreController extends Controller
 {
+    /**
+     * Создать новую запись
+     *
+     * @group Posts
+     * @apiResource 201 App\Http\Resources\PostResource
+     * @apiResourceModel App\Models\Post
+     * @responseFile status=400 scenario="Unauthenticated" responses/defaults/400.json
+     * @responseFile status=422 scenario="Unprocessable" responses/defaults/422.json
+     */
     public function __invoke(StoreRequest $request): JsonResponse
     {
         /** @var User $user */

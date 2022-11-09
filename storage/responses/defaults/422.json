@@ -1,0 +1,9 @@
+{
+    "message": "...",
+    "errors": {
+        "field_name": [
+            "error 1 ...",
+            "error 2 ..."
+        ]
+    }
+}

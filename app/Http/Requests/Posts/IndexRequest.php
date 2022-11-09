@@ -17,4 +17,11 @@ class IndexRequest extends FormRequest
             //
         ];
     }
+
+    public function bodyParameters(): array
+    {
+        return [
+            //
+        ];
+    }
 }

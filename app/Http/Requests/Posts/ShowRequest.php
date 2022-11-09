@@ -25,4 +25,11 @@ class ShowRequest extends FormRequest
             //
         ];
     }
+
+    public function bodyParameters(): array
+    {
+        return [
+            //
+        ];
+    }
 }

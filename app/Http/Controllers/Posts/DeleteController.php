@@ -14,6 +14,15 @@ use Tests\Feature\Posts\DeleteControllerTest;
  */
 class DeleteController extends Controller
 {
+    /**
+     * Удалить запись
+     *
+     * @group Posts
+     * @responseFile status=400 scenario="Unauthenticated" responses/defaults/400.json
+     * @responseFile status=403 scenario="Forbidden" responses/defaults/403.json
+     * @responseFile status=404 scenario="Not found" responses/defaults/404.json
+     * @responseFile status=200 scenario="Success" responses/defaults/success.json {"message": "Post was deleted"}
+     */
     public function __invoke(DeleteRequest $request, Post $post): JsonResponse
     {
         $post->delete();

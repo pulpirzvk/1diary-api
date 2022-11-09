@@ -13,6 +13,14 @@ use Tests\Feature\Posts\IndexControllerTest;
  */
 class IndexController extends Controller
 {
+    /**
+     * Получить список записей текущего пользователя
+     *
+     * @group Posts
+     * @apiResourceCollection App\Http\Resources\PostCollection
+     * @apiResourceModel App\Models\Post
+     * @responseFile status=400 scenario="Unauthenticated" responses/defaults/400.json
+     */
     public function __invoke(IndexRequest $request): PostCollection
     {
         /** @var User $user */
