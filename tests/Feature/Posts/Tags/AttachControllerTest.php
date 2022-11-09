@@ -18,7 +18,7 @@ class AttachControllerTest extends TestCase
     {
         $response = $this->postJson(route('api.posts.tags.attach', [
             Str::uuid(),
-            Str::uuid()
+            Str::uuid(),
         ]));
 
         $response->assertUnauthorized();
@@ -34,7 +34,7 @@ class AttachControllerTest extends TestCase
 
         $response = $this->postJson(route('api.posts.tags.attach', [
             Str::uuid(),
-            $tag
+            $tag,
         ]));
 
         $response->assertNotFound();
@@ -50,7 +50,7 @@ class AttachControllerTest extends TestCase
 
         $response = $this->postJson(route('api.posts.tags.attach', [
             $post,
-            Str::uuid()
+            Str::uuid(),
         ]));
 
         $response->assertNotFound();
@@ -68,7 +68,7 @@ class AttachControllerTest extends TestCase
 
         $response = $this->postJson(route('api.posts.tags.attach', [
             $post,
-            $tag
+            $tag,
         ]));
 
         $response->assertForbidden();
@@ -86,7 +86,7 @@ class AttachControllerTest extends TestCase
 
         $response = $this->postJson(route('api.posts.tags.attach', [
             $post,
-            $tag
+            $tag,
         ]));
 
         $response->assertForbidden();
@@ -106,7 +106,7 @@ class AttachControllerTest extends TestCase
 
         $response = $this->postJson(route('api.posts.tags.attach', [
             $post,
-            $tag
+            $tag,
         ]));
 
         $response
@@ -142,7 +142,7 @@ class AttachControllerTest extends TestCase
 
         $response = $this->postJson(route('api.posts.tags.attach', [
             $post,
-            $tag
+            $tag,
         ]));
 
         $response

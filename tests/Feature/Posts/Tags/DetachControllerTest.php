@@ -18,7 +18,7 @@ class DetachControllerTest extends TestCase
     {
         $response = $this->deleteJson(route('api.posts.tags.detach', [
             Str::uuid(),
-            Str::uuid()
+            Str::uuid(),
         ]));
 
         $response->assertUnauthorized();
@@ -34,7 +34,7 @@ class DetachControllerTest extends TestCase
 
         $response = $this->deleteJson(route('api.posts.tags.detach', [
             Str::uuid(),
-            $tag
+            $tag,
         ]));
 
         $response->assertNotFound();
@@ -50,7 +50,7 @@ class DetachControllerTest extends TestCase
 
         $response = $this->deleteJson(route('api.posts.tags.detach', [
             $post,
-            Str::uuid()
+            Str::uuid(),
         ]));
 
         $response->assertNotFound();
@@ -68,7 +68,7 @@ class DetachControllerTest extends TestCase
 
         $response = $this->deleteJson(route('api.posts.tags.detach', [
             $post,
-            $tag
+            $tag,
         ]));
 
         $response->assertForbidden();
@@ -86,7 +86,7 @@ class DetachControllerTest extends TestCase
 
         $response = $this->deleteJson(route('api.posts.tags.detach', [
             $post,
-            $tag
+            $tag,
         ]));
 
         $response->assertForbidden();
@@ -108,7 +108,7 @@ class DetachControllerTest extends TestCase
 
         $response = $this->deleteJson(route('api.posts.tags.detach', [
             $post,
-            $tag
+            $tag,
         ]));
 
         $response
@@ -142,7 +142,7 @@ class DetachControllerTest extends TestCase
 
         $response = $this->deleteJson(route('api.posts.tags.detach', [
             $post,
-            $tag
+            $tag,
         ]));
 
         $response
