@@ -11,6 +11,9 @@ Route::middleware('auth:sanctum')->name('api.')->prefix('v1')->group(function ()
         Route::get('/{post}', Posts\ShowController::class)->name('show');
         Route::put('/{post}', Posts\UpdateController::class)->name('update');
         Route::delete('/{post}', Posts\DeleteController::class)->name('delete');
+
+        Route::post('/{post}/tags/{tag}', Posts\Tags\AttachController::class)->name('tags.attach');
+        Route::delete('/{post}/tags/{tag}', Posts\Tags\DetachController::class)->name('tags.detach');
     });
 
     Route::prefix('tags')->name('tags.')->group(function () {

@@ -89,7 +89,6 @@ class UpdateControllerTest extends TestCase
         $response = $this->putJson(route('api.posts.update', $post), $post->toArray());
 
         $response
-            ->dump()
             ->assertUnprocessable()
             ->assertInvalid('title');
     }
