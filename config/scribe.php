@@ -38,6 +38,7 @@ return [
                  */
                 'prefixes' => [
                     'api/v1/posts*',
+                    'api/v1/tags*',
                 ],
 
                 /*

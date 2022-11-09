@@ -35,7 +35,7 @@ class TagSlug implements InvokableRule
         }
     }
 
-    public function ignore(string $ignoreId): TagSlug
+    public function ignore(?string $ignoreId): TagSlug
     {
         $this->ignoreId = $ignoreId;
 

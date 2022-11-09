@@ -15,9 +15,9 @@ use Tests\Feature\Posts\StoreControllerTest;
 class StoreController extends Controller
 {
     /**
-     * Создать новую запись
+     * Создать запись
      *
-     * @group Posts
+     * @group Управление записями
      * @apiResource 201 App\Http\Resources\PostResource
      * @apiResourceModel App\Models\Post
      * @responseFile status=400 scenario="Unauthenticated" responses/defaults/400.json

@@ -17,7 +17,7 @@ class UpdateController extends Controller
     /**
      * Обновить запись
      *
-     * @group Posts
+     * @group Управление записями
      * @responseFile status=400 scenario="Unauthenticated" responses/defaults/400.json
      * @responseFile status=422 scenario="Unprocessable" responses/defaults/422.json
      * @responseFile status=403 scenario="Forbidden" responses/defaults/403.json

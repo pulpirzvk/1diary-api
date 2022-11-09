@@ -16,7 +16,7 @@ class ShowController extends Controller
     /**
      * Получить информацию о записи
      *
-     * @group Posts
+     * @group Управление записями
      * @apiResource App\Http\Resources\PostResource
      * @apiResourceModel App\Models\Post
      * @responseFile status=400 scenario="Unauthenticated" responses/defaults/400.json

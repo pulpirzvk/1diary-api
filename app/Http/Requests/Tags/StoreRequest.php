@@ -24,4 +24,13 @@ class StoreRequest extends FormRequest
             ],
         ];
     }
+
+    public function bodyParameters(): array
+    {
+        return [
+            'name' => [
+                'description' => 'Имя тега. Должно быть уникально без учета регистра.',
+            ],
+        ];
+    }
 }

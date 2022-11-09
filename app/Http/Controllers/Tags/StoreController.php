@@ -14,6 +14,15 @@ use Tests\Feature\Tags\StoreControllerTest;
  */
 class StoreController extends Controller
 {
+    /**
+     * Создать тег
+     *
+     * @group Управление тегами
+     * @apiResource 201 App\Http\Resources\TagResource
+     * @apiResourceModel App\Models\Tag
+     * @responseFile status=400 scenario="Unauthenticated" responses/defaults/400.json
+     * @responseFile status=422 scenario="Unprocessable" responses/defaults/422.json
+     */
     public function __invoke(StoreRequest $request): JsonResponse
     {
         /** @var User $user */

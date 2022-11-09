@@ -16,7 +16,7 @@ class IndexController extends Controller
     /**
      * Получить список записей текущего пользователя
      *
-     * @group Posts
+     * @group Управление записями
      * @apiResourceCollection App\Http\Resources\PostCollection
      * @apiResourceModel App\Models\Post
      * @responseFile status=400 scenario="Unauthenticated" responses/defaults/400.json

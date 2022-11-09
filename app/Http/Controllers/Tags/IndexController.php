@@ -13,6 +13,14 @@ use Tests\Feature\Tags\IndexControllerTest;
  */
 class IndexController extends Controller
 {
+    /**
+     * Получить список тегов текущего пользователя
+     *
+     * @group Управление тегами
+     * @apiResourceCollection App\Http\Resources\TagCollection
+     * @apiResourceModel App\Models\Tag
+     * @responseFile status=400 scenario="Unauthenticated" responses/defaults/400.json
+     */
     public function __invoke(IndexRequest $request): TagCollection
     {
         /** @var User $user */
