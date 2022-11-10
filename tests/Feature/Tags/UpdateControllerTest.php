@@ -3,7 +3,7 @@
 namespace Tests\Feature\Tags;
 
 use App\Http\Controllers\Tags\DeleteController;
-use App\Models\Tag;
+use App\Models\Tags\Tag;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Str;
 use Tests\TestCase;

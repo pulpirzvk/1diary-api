@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\Tag;
+use App\Models\Tags\Tag;
 use Closure;
 use Illuminate\Contracts\Validation\InvokableRule;
 use Illuminate\Translation\PotentiallyTranslatedString;

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Tags;
+namespace App\Http\Controllers\Tags\Groups;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Tags\StoreRequest;
-use App\Http\Resources\Tags\TagResource;
+use App\Http\Requests\Tags\Groups\StoreRequest;
+use App\Http\Resources\Tags\GroupResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Tests\Feature\Tags\StoreControllerTest;
+use Tests\Feature\Tags\Groups\StoreControllerTest;
 
 /**
  * @see StoreControllerTest
@@ -15,11 +15,11 @@ use Tests\Feature\Tags\StoreControllerTest;
 class StoreController extends Controller
 {
     /**
-     * Создать тег
+     * Создать группу тегов
      *
      * @group Управление тегами
-     * @apiResource 201 App\Http\Resources\Tags\TagResource
-     * @apiResourceModel App\Models\Tags\Tag
+     * @apiResource 201 App\Http\Resources\Tags\GroupResource
+     * @apiResourceModel App\Models\Tags\Group
      * @responseFile status=400 scenario="Unauthenticated" responses/defaults/400.json
      * @responseFile status=422 scenario="Unprocessable" responses/defaults/422.json
      */
@@ -28,9 +28,9 @@ class StoreController extends Controller
         /** @var User $user */
         $user = $request->user();
 
-        $tag = $user->tags()->create($request->validated())->refresh();
+        $group = $user->tagGroups()->create($request->validated());
 
-        return TagResource::make($tag)
+        return GroupResource::make($group)
             ->response()
             ->setStatusCode(201);
     }

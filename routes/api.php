@@ -16,6 +16,14 @@ Route::middleware('auth:sanctum')->name('api.')->prefix('v1')->group(function ()
         Route::delete('/{post}/tags/{tag}', Posts\Tags\DetachController::class)->name('tags.detach');
     });
 
+    Route::prefix('tag_groups')->name('tag_groups.')->group(function () {
+        Route::get('/', Tags\Groups\IndexController::class)->name('index');
+        Route::post('/', Tags\Groups\StoreController::class)->name('store');
+        Route::get('/{group}', Tags\Groups\ShowController::class)->name('show');
+        Route::put('/{group}', Tags\Groups\UpdateController::class)->name('update');
+        Route::delete('/{group}', Tags\Groups\DeleteController::class)->name('delete');
+    });
+
     Route::prefix('tags')->name('tags.')->group(function () {
         Route::get('/', Tags\IndexController::class)->name('index');
         Route::post('/', Tags\StoreController::class)->name('store');

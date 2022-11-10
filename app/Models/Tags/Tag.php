@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tags;
 
+use App\Models\User;
+use Database\Factories\Tags\TagFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Provider\Node\StaticNodeProvider;
@@ -30,6 +33,11 @@ class Tag extends Model
         'slug',
     ];
 
+    protected static function newFactory(): TagFactory
+    {
+        return TagFactory::new();
+    }
+
     public function setNameAttribute(?string $value): void
     {
         $this->attributes['name'] = $value;
@@ -51,5 +59,10 @@ class Tag extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class, 'tag_tag_group', 'tag_uuid', 'group_uuid');
     }
 }

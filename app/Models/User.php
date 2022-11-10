@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Tags\Group;
+use App\Models\Tags\Tag;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,5 +36,10 @@ class User extends Authenticatable
     public function tags(): HasMany
     {
         return $this->hasMany(Tag::class);
+    }
+
+    public function tagGroups(): HasMany
+    {
+        return $this->hasMany(Group::class);
     }
 }

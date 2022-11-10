@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Posts\Tags;
 
 use App\Models\Post;
-use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -17,7 +16,7 @@ class AttachRequest extends FormRequest
         /** @var Post $post */
         $post = $this->route()->parameter('post');
 
-        /** @var Tag $tag */
+        /** @var \App\Models\Tags\Tag $tag */
         $tag = $this->route()->parameter('tag');
 
         return $post->user_id === $user->id && $tag->user_id === $user->id;

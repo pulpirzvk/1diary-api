@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Tags;
 
-use App\Models\Tag;
+use App\Models\Tags\Group;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin Tag
+ * @mixin Group
  */
-class TagResource extends JsonResource
+class GroupResource extends JsonResource
 {
     public function toArray($request): array
     {
         return [
             'id' => $this->getKey(),
             'name' => $this->name,
-            'slug' => $this->slug,
         ];
     }
 }

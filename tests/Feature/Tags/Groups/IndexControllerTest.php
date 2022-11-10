@@ -1,38 +1,37 @@
 <?php
 
-namespace Tests\Feature\Tags;
+namespace Tests\Feature\Tags\Groups;
 
-use App\Http\Controllers\Tags\IndexController;
-use App\Models\Tags\Tag;
-use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Http\Controllers\Tags\Groups\IndexController;
+use App\Models\Tags\Group;
 use Tests\TestCase;
 
 /**
  * @see IndexController
  * @group Tags
+ * @group TagGroups
  */
 class IndexControllerTest extends TestCase
 {
-    use DatabaseTransactions;
-
     public function test_unauthorized(): void
     {
-        $response = $this->getJson(route('api.tags.index'));
+        $response = $this->getJson(route('api.tag_groups.index'));
 
         $response->assertUnauthorized();
     }
 
     public function test_success(): void
     {
-        $user = User::factory()->has(Tag::factory(3))->create();
+        $user = $this->auth();
 
-        $this->auth($user);
+        Group::factory(3)->create([
+            'user_id' => $user->id,
+        ]);
 
-        $response = $this->getJson(route('api.tags.index'));
+        $response = $this->getJson(route('api.tag_groups.index'));
 
         $response
-            ->assertJsonCount(3, 'data')
+            ->assertOk()
             ->assertJsonStructure([
                 'data' => [
                     '*' => [
@@ -40,6 +39,7 @@ class IndexControllerTest extends TestCase
                         'name',
                     ],
                 ],
-            ]);
+            ])
+            ->assertJsonCount(3, 'data');
     }
 }

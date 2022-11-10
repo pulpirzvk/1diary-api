@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tags;
 
-use App\Models\Tags\Tag;
+use App\Models\User;
+use Database\Factories\Tags\GroupFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,11 +14,13 @@ use Ramsey\Uuid\Provider\Node\StaticNodeProvider;
 use Ramsey\Uuid\Type\Hexadecimal;
 use Ramsey\Uuid\Uuid;
 
-class Post extends Model
+class Group extends Model
 {
     use HasFactory,
         HasUuids,
         SoftDeletes;
+
+    protected $table = 'tag_groups';
 
     protected $primaryKey = 'uuid';
 
@@ -25,17 +28,16 @@ class Post extends Model
 
     protected $keyType = 'string';
 
+
     protected $fillable = [
+        'name',
         'user_id',
-        'title',
-        'content',
-        'published_at',
     ];
 
-    protected $casts = [
-        'published_at' => 'datetime:Y-m-d H:i:s',
-    ];
-
+    protected static function newFactory(): GroupFactory
+    {
+        return GroupFactory::new();
+    }
 
     public function newUniqueId(): string
     {
@@ -51,6 +53,6 @@ class Post extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class, 'post_tag', 'post_uuid', 'tag_uuid');
+        return $this->belongsToMany(Tag::class, 'tag_tag_group', 'group_uuid', 'tag_uuid');
     }
 }

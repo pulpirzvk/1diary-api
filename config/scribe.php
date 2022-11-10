@@ -39,6 +39,7 @@ return [
                 'prefixes' => [
                     'api/v1/posts*',
                     'api/v1/tags*',
+                    'api/v1/tag_groups*',
                 ],
 
                 /*

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Posts\Tags;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Posts\Tags\AttachRequest;
 use App\Models\Post;
-use App\Models\Tag;
+use App\Models\Tags\Tag;
 use App\Services\Response;
 use Illuminate\Http\JsonResponse;
 use Tests\Feature\Posts\Tags\AttachControllerTest;

@@ -4,7 +4,7 @@ namespace Tests\Feature\Posts\Tags;
 
 use App\Http\Controllers\Posts\Tags\DetachController;
 use App\Models\Post;
-use App\Models\Tag;
+use App\Models\Tags\Tag;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
