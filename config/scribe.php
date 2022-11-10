@@ -37,6 +37,7 @@ return [
                  * Match only routes whose paths match this pattern (use * as a wildcard to match any characters). Example: 'users/*'.
                  */
                 'prefixes' => [
+                    'api/v1/current*',
                     'api/v1/posts*',
                     'api/v1/tags*',
                     'api/v1/tag_groups*',

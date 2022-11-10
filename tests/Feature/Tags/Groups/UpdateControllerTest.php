@@ -4,6 +4,7 @@ namespace Tests\Feature\Tags\Groups;
 
 use App\Http\Controllers\Tags\Groups\UpdateController;
 use App\Models\Tags\Group;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -14,6 +15,8 @@ use Tests\TestCase;
  */
 class UpdateControllerTest extends TestCase
 {
+    use DatabaseTransactions;
+
     public function test_unauthorized(): void
     {
         $response = $this->putJson(route('api.tag_groups.update', Str::uuid()), []);

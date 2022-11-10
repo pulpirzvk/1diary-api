@@ -4,6 +4,7 @@ namespace Tests\Feature\Tags\Groups;
 
 use App\Http\Controllers\Tags\Groups\IndexController;
 use App\Models\Tags\Group;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 /**
@@ -13,6 +14,8 @@ use Tests\TestCase;
  */
 class IndexControllerTest extends TestCase
 {
+    use DatabaseTransactions;
+
     public function test_unauthorized(): void
     {
         $response = $this->getJson(route('api.tag_groups.index'));

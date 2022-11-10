@@ -1,10 +1,19 @@
 <?php
 
+use App\Http\Controllers\Current;
 use App\Http\Controllers\Posts;
 use App\Http\Controllers\Tags;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->name('api.')->prefix('v1')->group(function () {
+
+    Route::prefix('current')->name('current.')->group(function () {
+        Route::get('/profile', Current\ProfileController::class)->name('profile');
+        Route::put('/profile', Current\UpdateController::class)->name('profile.update');
+        Route::patch('/email', Current\EmailController::class)->name('email');
+        Route::patch('/password', Current\PasswordController::class)->name('password');
+    });
+
     Route::prefix('posts')->name('posts.')->group(function () {
         Route::get('/', Posts\IndexController::class)->name('index');
         Route::post('/', Posts\StoreController::class)->name('store');
