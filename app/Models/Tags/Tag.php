@@ -2,6 +2,7 @@
 
 namespace App\Models\Tags;
 
+use App\Models\Post;
 use App\Models\User;
 use Database\Factories\Tags\TagFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -59,6 +60,11 @@ class Tag extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function posts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'post_tag', 'tag_uuid', 'post_uuid');
     }
 
     public function groups(): BelongsToMany

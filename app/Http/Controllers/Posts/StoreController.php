@@ -31,7 +31,7 @@ class StoreController extends Controller
         $data = $request->validated();
 
         if ($data['published_at'] === null) {
-            unset($data['published_at']);
+            $data['published_at'] = now();
         }
 
         $post = $user->posts()->create($data)->refresh();

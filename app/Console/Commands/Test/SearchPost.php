@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Test;
 
 use App\Models\Post;
+use App\Services\PostSearcher\PostSearcher;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Symfony\Component\Console\Command\Command as CommandAlias;
@@ -15,7 +16,7 @@ use Symfony\Component\Console\Command\Command as CommandAlias;
  */
 class SearchPost extends Command
 {
-    protected $signature = 'test:search:post {--s=} {--user=} {--publish=} {--create=} {--tag=*}';
+    protected $signature = 'test:search:post {user} {--s=} {--publish=} {--create=} {--tag=*}';
 
     protected $description = 'Тестирование поиска';
 
@@ -23,7 +24,7 @@ class SearchPost extends Command
     {
         $s = $this->option('s');
 
-        $user = $this->option('user');
+        $userId = $this->argument('user');
 
         $tags = $this->option('tag');
 
@@ -35,37 +36,18 @@ class SearchPost extends Command
 
         list($createStart, $createEnd) = array_pad(explode(':', $createRange), 2, null);
 
-        $search = Post::search($s);
-
-        if ($user) {
-            $search->where('user_id', $user);
-        }
-
-        if ($publishStart) {
-            $search->where('published_at >', $this->getStartTimestamp($publishStart));
-        }
-
-        if ($publishEnd) {
-            $search->where('published_at <', $this->getEndTimestamp($publishEnd));
-        }
-
-        if ($createStart) {
-            $search->where('created_at >', $this->getStartTimestamp($createStart));
-        }
-
-        if ($createEnd) {
-            $search->where('created_at <', $this->getEndTimestamp($createEnd));
-        }
-
-        if ($tags) {
-            $search->whereIn('tags', $tags);
-        }
-
-        $items = $search->take(5)->orderBy('uuid')->get();
+        $items = PostSearcher::make($userId)
+            ->setSearchString($s)
+            ->setPublishedAtFrom($publishStart)
+            ->setPublishedAtTill($publishEnd)
+            ->setCreatedAtFrom($createStart)
+            ->setCreatedAtTill($createEnd)
+            ->setTagIds($tags)
+            ->get();
 
         $this->line(vsprintf('Search: "%s". User ID: "%s". Published: [%s]. Created: [%s]. Count: %s', [
             $s,
-            $user,
+            $userId,
             $publishRange,
             $createRange,
             $items->count(),
