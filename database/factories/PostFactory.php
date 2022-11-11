@@ -17,7 +17,7 @@ class PostFactory extends Factory
             'user_id' => User::factory(),
             'title' => fake()->sentence,
             'content' => fake()->paragraph(6),
-            'published_at' => now()->format('Y-m-d H:i:s'),
+            'published_at' => fake()->dateTimeBetween('-1 week'),
         ];
     }
 }

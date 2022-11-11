@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->name('api.')->prefix('v1')->group(function ()
     });
 
     Route::prefix('posts')->name('posts.')->group(function () {
+        Route::get('/search', Posts\SearchController::class)->name('search');
         Route::get('/', Posts\IndexController::class)->name('index');
         Route::post('/', Posts\StoreController::class)->name('store');
         Route::get('/{post}', Posts\ShowController::class)->name('show');
