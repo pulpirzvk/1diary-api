@@ -5,18 +5,59 @@ namespace {{ namespace }};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+/**
+ * @see
+ * @group
+ */
 class {{ class }} extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
-    {
-        $response = $this->get('/');
+    use DatabaseTransactions;
 
-        $response->assertStatus(200);
+    public function test_unauthorized(): void
+    {
+        //$response->assertUnauthorized();
+    }
+
+    public function test_404(): void
+    {
+        //$response->assertNotFound();
+    }
+
+    public function test_forbidden(): void
+    {
+        $this->auth();
+
+        //$response->assertForbidden();
+    }
+
+    public function test_success(): void
+    {
+        $user = $this->auth();
+
+        //$response
+        //    ->assertOk()
+        //    ->assertJsonStructure([
+        //        'status',
+        //        'message',
+        //    ])
+        //    ->assertExactJson([
+        //        'status' => true,
+        //        'message' => '',
+        //    ]);
+
+        $this->assertDatabaseHas('', [
+
+        ]);
+    }
+
+    public function test_error(): void
+    {
+        $this->auth();
+
+        //$response
+        //    ->assertUnprocessable()
+        //    ->assertInvalid('');
     }
 }
