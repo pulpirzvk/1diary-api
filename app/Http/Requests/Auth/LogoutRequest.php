@@ -1,10 +1,10 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class {{ class }} extends FormRequest
+class LogoutRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -21,9 +21,7 @@ class {{ class }} extends FormRequest
     public function bodyParameters(): array
     {
         return [
-            '' => [
-                'description' => '',
-            ],
+            //
         ];
     }
 }

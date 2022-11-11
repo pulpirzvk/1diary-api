@@ -10,6 +10,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('telescope:prune')->daily();
+        $schedule->command('sanctum:prune-expired --hours=24')->daily();
     }
 
     protected function commands(): void

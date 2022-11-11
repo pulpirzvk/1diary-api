@@ -1,9 +1,16 @@
 <?php
 
+use App\Http\Controllers\Auth;
 use App\Http\Controllers\Current;
 use App\Http\Controllers\Posts;
 use App\Http\Controllers\Tags;
 use Illuminate\Support\Facades\Route;
+
+Route::prefix('v1')->name('auth.')->group(function () {
+    Route::post('/auth/login', Auth\LoginController::class)->name('login');
+    Route::post('/auth/register', Auth\RegisterController::class)->name('register');
+    Route::post('/auth/logout', Auth\LogoutController::class)->name('logout');
+});
 
 Route::middleware('auth:sanctum')->name('api.')->prefix('v1')->group(function () {
 
