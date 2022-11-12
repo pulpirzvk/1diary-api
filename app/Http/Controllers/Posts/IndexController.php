@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Posts\IndexRequest;
 use App\Http\Resources\PostCollection;
 use App\Models\User;
+use App\Services\PostSearcher\PostSearcher;
 use Tests\Feature\Posts\IndexControllerTest;
 
 /**
@@ -26,7 +27,10 @@ class IndexController extends Controller
         /** @var User $user */
         $user = $request->user();
 
-        $posts = $user->posts()->oldest('published_at')->get();
+        $postSearcher = PostSearcher::make($user)
+            ->fillFromRequest($request);
+
+        $posts = $postSearcher->get();
 
         return PostCollection::make($posts);
     }

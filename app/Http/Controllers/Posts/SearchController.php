@@ -3,30 +3,40 @@
 namespace App\Http\Controllers\Posts;
 
 use App\Http\Controllers\Controller;
-use App\Services\Response;
+use App\Http\Resources\PostCollection;
+use App\Models\User;
+use App\Services\PostSearcher\PostSearcher;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-//use Tests\Feature\Auth\SerachControllerTest;
 
-/**
- * @see SearchControllerTest
- */
 class SearchController extends Controller
 {
     /**
+     * Поиск и фильтрация по записям
      *
+     * Если нет ни одного параметра поиска и фильтрации, то возвращаются 5 последних записей
      *
-     * @group
-     * @apiResource App\Http\Resources\
-     * @apiResourceModel App\Models\
+     * @group Управление записями
+     * @apiResourceCollection App\Http\Resources\PostCollection
+     * @apiResourceModel App\Models\Post
      * @responseFile status=400 scenario="Unauthenticated" responses/defaults/400.json
-     * @responseFile status=422 scenario="Unprocessable" responses/defaults/422.json
-     * @responseFile status=403 scenario="Forbidden" responses/defaults/403.json
-     * @responseFile status=404 scenario="Not found" responses/defaults/404.json
-     * @responseFile status=200 scenario="Success" responses/defaults/success.json {"message": "Post was updated"}
      */
     public function __invoke(Request $request): JsonResponse
     {
-        return Response::success('');
+        /** @var User $user */
+        $user = $request->user();
+
+        $postSearcher = PostSearcher::make($user)
+            ->fillFromRequest($request);
+
+        if ($postSearcher->hasEmptyConditions()) {
+            $postSearcher->limit(5)
+                ->setSortBy('uuid')
+                ->setSortDirection('DESC');
+        }
+
+        $posts = $postSearcher->get();
+
+        return PostCollection::make($posts);
     }
 }

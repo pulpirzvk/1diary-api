@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 class PostSearcher
 {
@@ -25,6 +26,10 @@ class PostSearcher
 
     protected ?int $limit = null;
 
+    protected ?string $sortBy = 'uuid';
+
+    protected ?string $sortDirection = 'DESC';
+
     public function __construct(int $userId)
     {
         $this->userId = $userId;
@@ -33,6 +38,28 @@ class PostSearcher
     public static function make(int|User $user): PostSearcher
     {
         return new PostSearcher($user instanceof User ? $user->id : $user);
+    }
+
+    public function fillFromRequest(Request $request): PostSearcher
+    {
+        return $this->setSearchString($request->input('s'))
+            ->setPublishedAtFrom($request->input('published_from'))
+            ->setPublishedAtTill($request->input('published_till'))
+            ->setCreatedAtFrom($request->input('created_from'))
+            ->setCreatedAtTill($request->input('created_till'))
+            ->setTagIds($request->input('tags', []))
+            ->setSortBy($request->input('sort_by'))
+            ->setSortDirection('sort_in');
+    }
+
+    public function hasEmptyConditions(): bool
+    {
+        return empty($this->s)
+            && empty($this->tagIds)
+            && empty($this->publishedAtFrom)
+            && empty($this->publishedAtTill)
+            && empty($this->createdAtFrom)
+            && empty($this->createdAtTill);
     }
 
     public function limit(?int $limit): PostSearcher
@@ -75,8 +102,37 @@ class PostSearcher
             $search->take($this->limit);
         }
 
+        if ($this->sortBy) {
+            $search->orderBy($this->sortBy, $this->sortDirection);
+        }
+
         return $search->orderBy('uuid')->get();
     }
+
+    public function setSortBy(?string $sortBy): PostSearcher
+    {
+        $sortBy = strtolower($sortBy ?: '');
+
+        $this->sortBy = in_array($sortBy, [
+            'uuid',
+            'published_at',
+        ]) ? $sortBy : 'uuid';
+
+        return $this;
+    }
+
+    public function setSortDirection(?string $sortDirection): PostSearcher
+    {
+        $sortDirection = strtoupper($sortDirection ?: '');
+
+        $this->sortDirection = in_array($sortDirection, [
+            'DESC',
+            'ASC',
+        ]) ? $sortDirection : 'DESC';
+
+        return $this;
+    }
+
 
     public function setSearchString(?string $s): PostSearcher
     {
